@@ -1,86 +1,90 @@
 class Die {
-  color eyeColor;
   color dieColor;
-  int xpos;
-  int ypos;
-  int diceSize;
+  color eyeColor;
+  int x;
+  int y;
+  int size;
   int dieValue;
 
-  Die(color tempEye, color tempDie, int tempXpos, int tempYpos, int tempSize ) {
-    eyeColor = tempEye;
-    dieColor = tempDie;
-    xpos = tempXpos;
-    ypos = tempYpos;
-    diceSize = tempSize;
+  // Constructor
+  Die(color tempDC, color tempEC) {
+    dieColor = tempDC;
+    eyeColor = tempEC;
   }
 
   int roll() {
+    // Giving the roll a random value between 1 and 6
     dieValue = int(random(1, 7));
     return dieValue;
   }
-  void Display() {
-    boolean[] eyes = {false, false, false, false, false, false, false};
-    switch(dieValue) {
-    case 1:
-      eyes[3] = true;
-      break;
-    case 2:
-      eyes[2] = true;
-      eyes[4] = true;
-      break;
-    case 3:
-      eyes[2] = true;
-      eyes[3] = true;
-      eyes[4] = true;
-      break;
-    case 4:
-      eyes[0] = true;
-      eyes[2] = true;
-      eyes[4] = true;
-      eyes[6] = true;
-      break;
-    case 5:
-      eyes[0] = true;
-      eyes[2] = true;
-      eyes[3] = true;
-      eyes[4] = true;
-      eyes[6] = true;
-      break;
-    case 6:
-      eyes[0] = true;
-      eyes[1] = true;
-      eyes[2] = true;
-      eyes[4] = true;
-      eyes[5] = true;
-      eyes[6] = true;
-      break;
+
+  void drawDie(int x, int y, int size) {
+    // boolean to determine and checks which eyes to show
+    boolean[] dEyes = {false, false, false, false, false, false, false } ;
+    if (dieValue == 1) {
+      dEyes[3] = true;
+    } else if (dieValue == 2) {
+      dEyes[0] = true;
+      dEyes[6] = true;
+    } else if (dieValue == 3) {
+      dEyes[0] = true;
+      dEyes[3] = true;
+      dEyes[6] = true;
+    } else if (dieValue == 4) {
+      dEyes[0] = true;
+      dEyes[2] = true;
+      dEyes[4] = true;
+      dEyes[6] = true;
+    } else if (dieValue == 5) {
+      dEyes[0] = true;
+      dEyes[2] = true;
+      dEyes[3] = true;
+      dEyes[4] = true;
+      dEyes[6] = true;
+    } else if (dieValue == 6) {
+      dEyes[0] = true;
+      dEyes[1] = true;
+      dEyes[2] = true;
+      dEyes[4] = true;
+      dEyes[5] = true;
+      dEyes[6] = true;
     }
 
-    stroke(255);
-    fill(dieColor);
-    noStroke();
+    // The die
     rectMode(CENTER);
-    rect(xpos, ypos, diceSize, diceSize);
+    fill(dieColor);
+    rect(x, y, size, size);
 
-    fill(eyeColor, (eyes[0] ? 255 : 0));
-    ellipse(xpos-diceSize/3, ypos-diceSize/3, diceSize/4, diceSize/4);
 
-    fill(eyeColor, (eyes[1] ? 255 : 0));
-    ellipse(xpos, ypos-diceSize/3, diceSize/4, diceSize/4);
-
-    fill(eyeColor, (eyes[2] ? 255 : 0));
-    ellipse(xpos+diceSize/3, ypos-diceSize/3, diceSize/4, diceSize/4);
-
-    fill(eyeColor, (eyes[3] ? 255 : 0));
-    ellipse(xpos, ypos, diceSize/4, diceSize/4);
-
-    fill(eyeColor, (eyes[4] ? 255 : 0));
-    ellipse(xpos-diceSize/3, ypos+diceSize/3, diceSize/4, diceSize/4);
-
-    fill(eyeColor, (eyes[5] ? 255 : 0));
-    ellipse(xpos, ypos+diceSize/3, diceSize/4, diceSize/4);
-
-    fill(eyeColor, (eyes[6] ? 255 : 0));
-    ellipse(xpos+diceSize/3, ypos+diceSize/3, diceSize/4, diceSize/4);
+    // The eyes of the die
+    noStroke();
+    
+    // Top left eye
+    fill(eyeColor, (dEyes[0] ? 255 : 0));
+    ellipse (x-size/3, y-size/3, size/5, size/5);
+    
+    // Top middle eye
+    fill(eyeColor, (dEyes[1] ? 255 : 0));
+    ellipse (x, y-size/3, size/5, size/5);
+    
+    // Top right eye
+    fill(eyeColor, (dEyes[2] ? 255 : 0));
+    ellipse (x+size/3, y-size/3, size/5, size/5);
+    
+    // Middle eye
+    fill(eyeColor, (dEyes[3] ? 255 : 0));
+    ellipse (x, y, size/5, size/5);
+    
+    // Bottom left eye
+    fill(eyeColor, (dEyes[4] ? 255 : 0));
+    ellipse (x-size/3, y+size/3, size/5, size/5);
+    
+    // Bottom middle eye
+    fill(eyeColor, (dEyes[5] ? 255 : 0));
+    ellipse (x, y+ size/3, size/5, size/5);
+    
+    // Bottom right eye
+    fill(eyeColor, (dEyes[6] ? 255 : 0));
+    ellipse (x+size/3, y+size/3, size/5, size/5);
   }
 }
